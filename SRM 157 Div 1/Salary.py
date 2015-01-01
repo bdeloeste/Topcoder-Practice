@@ -7,9 +7,7 @@ class Salary(object):
         # Property instantiations
         arrival_temp = []
         departure_temp = []
-        arrival_hour = departure_hour = difference = total = evening_arrival = evening_departure = 0
-        evening_total = evening_remaining = arrival_remaining = regular_wage = evening_wage = 0
-        morning_total = morning_arrival = morning_departure = morning_remaining = 0
+        arrival_hour = departure_hour = total = 0
         # Input check
         if len(arrival) != len(departure):
             print("invalid input")
@@ -27,12 +25,15 @@ class Salary(object):
             departure_sec = (datetime.timedelta(hours=departure_temp.tm_hour,minutes=departure_temp.tm_min,seconds=departure_temp.tm_sec).total_seconds())
             departure_hour = departure_sec/3600
             print('Departure', departure_hour)
-            # Compute number of hours worked in the AM
+            # Calculate total salary
             if arrival_hour <= 6:
                 if departure_hour <= 6:
+                    # 1.5 times wage for AM hours
                     total += (departure_hour - arrival_hour) * 1.5 * wage
                 elif departure_hour <= 18:
+                    # 1.5 times wage for AM hours
                     total += (6 - arrival_hour) * 1.5 * wage
+                    # Add remaining regular paid wage
                     total += (departure_hour - 6) * wage
                 else:
                     total += (6 - arrival_hour) * 1.5 * wage
